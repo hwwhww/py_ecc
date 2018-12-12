@@ -66,6 +66,9 @@ class FQ(object):
         on = other.n if isinstance(other, FQ) else other
         return FQ((self.n - on) % field_modulus)
 
+    def __mod__(self, other: Union[int, "FQ"]) -> "FQ":
+        return self.__mod__(other)
+
     def __div__(self, other: IntOrFQ) -> "FQ":
         on = other.n if isinstance(other, FQ) else other
         assert isinstance(on, int)
@@ -171,6 +174,9 @@ class FQP(object):
             in zip(self.coeffs, other.coeffs)
         ])
 
+    def __mod__(self, other: Union[int, "FQP"]) -> "FQP":
+        return self.__mod__(other)
+
     def __mul__(self, other: Union[int, "FQP"]) -> "FQP":
         if isinstance(other, int):
             return type(self)([int(c) * other % field_modulus for c in self.coeffs])
@@ -274,6 +280,53 @@ class FQ2(FQP):
         assert self.degree == 2
         assert self.mc_tuples == FQ2_MC_TUPLES
 
+    def __add__(self, other: "FQ2") -> "FQ2":
+        return super().__add__(other)
+
+    def __sub__(self, other: "FQ2") -> "FQ2":
+        return super().__sub__(other)
+
+    def __mod__(self, other: Union[int, "FQ2"]) -> "FQ2":
+        return super().__mod__(other)
+
+    def __mul__(self, other: Union[int, "FQ2"]) -> "FQ2":
+        return super().__mul__(other)
+
+    def __rmul__(self, other: Union[int, "FQ2"]) -> "FQ2":
+        return super().__rmul__(other)
+
+    def __div__(self, other: Union[int, "FQ", "FQ2"]) -> "FQ2":
+        return super().__div__(other)
+
+    def __truediv__(self, other: Union[int, "FQ", "FQ2"]) -> "FQ2":
+        return self.__truediv__(other)
+
+    def __pow__(self, other: int) -> "FQ2":
+        return super().__pow__(other)
+
+    def inv(self) -> "FQ2":
+        return super().inv()
+
+    def __repr__(self) -> str:
+        return super().__repr__()
+
+    def __eq__(self, other: "FQ2") -> bool:     # type: ignore # https://github.com/python/mypy/issues/2783 # noqa: E501
+        return super().__eq__(other)
+
+    def __ne__(self, other: "FQ2") -> bool:     # type: ignore # https://github.com/python/mypy/issues/2783 # noqa: E501
+        return super().__ne__(other)
+
+    def __neg__(self) -> "FQ2":
+        return super().__neg__()
+
+    @classmethod
+    def one(cls) -> "FQ2":
+        return super().one(cls)
+
+    @classmethod
+    def zero(cls) -> "FQ2":
+        return super().zero(cls)
+
 
 # The 12th-degree extension field
 class FQ12(FQP):
@@ -284,3 +337,50 @@ class FQ12(FQP):
         super().__init__(coeffs, FQ12_MODULUS_COEFFS)
         assert self.degree == 12
         assert self.mc_tuples == FQ12_MC_TUPLES
+
+    def __add__(self, other: "FQ12") -> "FQ12":
+        return super().__add__(other)
+
+    def __sub__(self, other: "FQ12") -> "FQ12":
+        return super().__sub__(other)
+
+    def __mod__(self, other: Union[int, "FQ12"]) -> "FQ12":
+        return super().__mod__(other)
+
+    def __mul__(self, other: Union[int, "FQ12"]) -> "FQ12":
+        return super().__mul__(other)
+
+    def __rmul__(self, other: Union[int, "FQ12"]) -> "FQ12":
+        return super().__rmul__(other)
+
+    def __div__(self, other: Union[int, "FQ", "FQ12"]) -> "FQ12":
+        return super().__div__(other)
+
+    def __truediv__(self, other: Union[int, "FQ", "FQ12"]) -> "FQ12":
+        return self.__truediv__(other)
+
+    def __pow__(self, other: int) -> "FQ12":
+        return super().__pow__(other)
+
+    def inv(self) -> "FQ12":
+        return super().inv()
+
+    def __repr__(self) -> str:
+        return super().__repr__()
+
+    def __eq__(self, other: "FQ12") -> bool:     # type: ignore # https://github.com/python/mypy/issues/2783 # noqa: E501
+        return super().__eq__(other)
+
+    def __ne__(self, other: "FQ12") -> bool:     # type: ignore # https://github.com/python/mypy/issues/2783 # noqa: E501
+        return super().__ne__(other)
+
+    def __neg__(self) -> "FQ12":
+        return super().__neg__()
+
+    @classmethod
+    def one(cls) -> "FQ12":
+        return super().one(cls)
+
+    @classmethod
+    def zero(cls) -> "FQ12":
+        return super().zero(cls)
