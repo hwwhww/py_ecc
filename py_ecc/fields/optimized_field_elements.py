@@ -216,7 +216,10 @@ class FQP(object):
 
     def __init__(self,
                  coeffs: Sequence[IntOrFQ],
-                 modulus_coeffs: Sequence[IntOrFQ] = []) -> None:
+                 modulus_coeffs: Sequence[IntOrFQ] = None) -> None:
+        if modulus_coeffs is None:
+            modulus_coeffs = ()
+
         if self.field_modulus is None:
             raise AttributeError("Field Modulus hasn't been specified")
 
