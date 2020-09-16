@@ -124,6 +124,8 @@ class BaseG2Ciphersuite(abc.ABC):
             signature_point = signature_to_G2(signature)
             aggregate = FQ12.one()
             for pk, message in zip(PKs, messages):
+                if not cls.KeyValidate(pk):
+                    raise ValidationError('PK (%s) is invalid')
                 pubkey_point = pubkey_to_G1(pk)
                 message_point = hash_to_G2(message, DST, cls.xmd_hash_function)
                 aggregate *= pairing(message_point, pubkey_point, final_exponentiate=False)
